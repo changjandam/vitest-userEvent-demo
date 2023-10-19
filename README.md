@@ -1,27 +1,21 @@
-# React + TypeScript + Vite
+# testing 筆記：user-event 多次觸發
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. 問題描述
 
-Currently, two official plugins are available:
+使用`label`标签包裹`input`标签，使用`userEvent.click`触发`label`标签，会触发两次`click`事件。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 2. 問題重現
 
-## Expanding the ESLint configuration
+如`App.tsx`。
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 3. 解決方案
 
-- Configure the top-level `parserOptions` property like this:
+修改測試環境，從`happy-dom`改為`jsdom`。
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+看線上課程時老師說用`happy-dom`可能速度比較快，所以我就用`happy-dom`，
+結果上班時遇到這個問題，只能先繞過但不知道解決辦法，
+回家後準備到react-testing-library的github上提問，
+但用jest環境時沒有發生問題，開始往測試環境找原因，
+多次修改測試環境後，發現改成`jsdom`就沒問題了。
+因此推測是`happy-dom`的問題，但要找出原因還需要更多時間。
