@@ -7,18 +7,20 @@ function App({ mockFn }: { mockFn: () => void }) {
 
   return (
     <div>
-      <input
-        id='input-id'
-        hidden
-        type='checkbox'
-        onChange={(e) => {
+      <label htmlFor='input-id'>
+        <input
+          id='input-id'
+          hidden
+          type='checkbox'
+          onChange={(e) => {
             mockFn();
-          console.log('onChange', e.target.checked);
-          setVal(e.target.checked);
-        }}
-        checked={val}
-      />
-      <label htmlFor='input-id'>label</label>
+            console.log('onChange', e.target.checked);
+            setVal(e.target.checked);
+          }}
+          checked={val}
+        />
+        label
+      </label>
       <p>{val ? 'checked' : 'unchecked'}</p>
     </div>
   );
